@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+    php:
+        build:
+            context: .
+            target: php
+            args:
+                - APP_ENV=${APP_ENV}
+        environment:
+            - APP_ENV=${APP_ENV}
+            - CONTAINER_ROLE=${CONTAINER_ROLE}
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        ports:
+            - 8000:8000
+    mysql:
+        image: mysql:8.0.33
+        environment:
+            MYSQL_DATABASE: app_docker
+            MYSQL_USER: puem
+            MYSQL_PASSWORD: app_docker@xT54rNDN!
+            MYSQL_ROOT_PASSWORD: app_docker@xT54rNDN!
+        volumes:
+            - mysql_data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+
+volumes:
+    mysql_data:
